@@ -1,9 +1,9 @@
 import 'package:dating_card_api/model/user_model.dart';
 import 'package:dio/dio.dart';
 
-class ApiServices {
+class UserService {
   final Dio _dio = Dio();
-  Future<List<dynamic>> fetchUsers(int page) async {
+  Future<List<UserModel>> fetchUsers(int page) async {
     try {
       final response = await _dio.get(
         'https://randomuser.me/api/',
