@@ -1,3 +1,4 @@
+import 'package:dating_card_api/model/user_model.dart';
 import 'package:dio/dio.dart';
 
 class ApiServices {
@@ -8,7 +9,12 @@ class ApiServices {
         'https://randomuser.me/api/',
         queryParameters: {'page': page, 'results': 10},
       );
-      return response.data['results'];
+      if (response.statusCode == 200) {
+        List<dynamic> result = response.data['results'];
+        return result.map((json) => UserModel.fromJson(json)).toList();
+      } else {
+        throw Exception("Failed to load users");
+      }
     } catch (e) {
       throw Exception("Failed to fetch User");
     }
